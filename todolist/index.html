@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vuejs TodoList Demo</title>
+</head>
+<body>
+<div id="app">
+	<h3>Todo List APP</h3>
+	<input type="text" v-model="newTodo">
+	<button v-on:click="addItem">Add To List</button>
+	<ol>
+		<todo-item
+			v-for="(item, index) in todoList"
+			:key="index"
+			:todo="item"
+			:remove="removeItem">
+		</todo-item>
+	</ol>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+<script type="text/javascript">
+	
+	Vue.component('todo-item', {
+		props: ['todo', 'index', 'remove'],
+		data: ()=>{
+			return {
+				text_before_li: 'Todo Item: '
+			}
+		},
+		template: '<li v-on:click="remove($event, todo)">{{text_before_li}} {{index}} {{todo}}</li>'
+	})
+
+	var app = new Vue({
+		el: '#app',
+		data: {
+			newTodo: '',
+			todoList: ['Watch Netflix']
+		},
+		methods: {
+			addItem: function(event){
+				this.todoList = this.todoList.concat([this.newTodo]);
+				this.newTodo = '';
+			},
+			removeItem: function(event, item){
+				this.todoList = this.todoList.slice(0,this.todoList.indexOf(item)).concat(this.todoList.slice((this.todoList.indexOf(item)+1)))
+			}
+		}
+	});
+</script>
+</body>
+</html>
