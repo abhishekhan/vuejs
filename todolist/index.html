@@ -2,21 +2,40 @@
 <html>
 <head>
 	<title>Vuejs TodoList Demo</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link href="https:////maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+
 </head>
 <body>
-<div id="app">
-	<h3>Todo List APP</h3>
-	<input type="text" v-model="newTodo">
-	<button v-on:click="addItem">Add To List</button>
-	<ol>
-		<todo-item
-			v-for="(item, index) in todoList"
-			:key="index"
-			:todo="item"
-			:remove="removeItem">
-		</todo-item>
-	</ol>
+<div id="app" class="container-fluid">
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<div class="col-12 col-sm-6 content">
+			<h3>ToDo List Demo</h3>
+			<input type="text" v-model="newTodo">
+			<button v-on:click="addItem" class="btn btn-primary">Add To List</button>
+			<ol>
+				<todo-item
+					v-for="(item, index) in todoList"
+					:key="index"
+					:todo="item"
+					:remove="removeItem">
+				</todo-item>
+			</ol>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
 </div>
+
+<style>
+	.content {
+		background: #981c1c;
+		color: #fff;
+	}
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
 <script type="text/javascript">
@@ -28,7 +47,7 @@
 				text_before_li: 'Todo Item: '
 			}
 		},
-		template: '<li v-on:click="remove($event, todo)">{{text_before_li}} {{index}} {{todo}}</li>'
+		template: '<li>{{text_before_li}} {{todo}}<i v-on:click="remove($event, todo)" style="cursor: pointer" class="ml-3 fa fa-fw fa-trash"></i></li>'
 	})
 
 	var app = new Vue({
